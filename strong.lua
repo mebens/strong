@@ -74,9 +74,7 @@ function string:eachLine(...)
   local lines = self:split(sep)
   
   if func then
-    for _, v in ipairs(lines) do
-      func(v)
-    end
+    for i = 1, #lines do func(lines[i]) end
   else
     return lines
   end
@@ -112,7 +110,16 @@ function string:lstrip()
   return self:gsub('^[\r\n\t ]+', '')
 end
 
--- TODO: next
+-- note: this doesn't behave like Ruby's String#next method
+function string:next()
+  if self:len() == 1 then
+    return string.char(self:byte() + 1)
+  else
+    local bytes = self:bytes()
+    for i = 1, #bytes do bytes[i] = bytes[i] + 1 end
+    return string.char(unpack(bytes))
+  end
+end
 
 function string:rjust(int, padstr)
   local len = self:len()
