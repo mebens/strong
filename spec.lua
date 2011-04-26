@@ -138,7 +138,70 @@ context('Methods', function()
     end)
   end)
   
-  context('lstrip', function()
+  context('ljust', function()
+    local str = "hello"
     
+    test('When the length provided is less than or equal to the length of the string, ' ..
+         'it should return the string itself', function()
+      assert_equal(str:ljust(#str - 1), str)
+      assert_equal(str:ljust(#str), str)
+    end)
+    
+    test('When the length provided is greater than the length of the string, it should pad it properly', function()
+      local justified = str:ljust(#str + 10)
+      assert_equal(justified, str .. (' ' * 10))
+      assert_equal(#justified, #str + 10)
+    end)
+    
+    test('It should pad with the string provided (if one is provided)', function()
+      assert_equal(str:ljust(#str + 2, '!'), str .. '!!')
+    end)
+  end)
+  
+  context('lstrip', function()
+    test('It should strip spaces and tabs', function()
+      assert_equal(('  \t hello'):lstrip(), 'hello')
+    end)
+    
+    test('It should strip newlines', function()
+      assert_equal(('\n\nhey'):lstrip(), 'hey')
+      assert_equal(('\r\nhey'):lstrip(), 'hey')
+    end)
+    
+    test('It should not strip to the right or the middle', function()
+      assert_equal(('  hello world  '):lstrip(), 'hello world  ')
+    end)
+  end)
+  
+  context('next', function()
+    test('When dealing with a single character, it should advance it', function()
+      assert_equal(('a'):next(), 'b')
+      assert_equal(('F'):next(), 'G')
+    end)
+    
+    test('When dealing with multiple characters, it should advance them all', function()
+      assert_equal(('aaa'):next(), 'bbb')
+      assert_equal(('aBc'):next(), 'bCd')
+    end)
+  end)
+  
+  context('rjust', function()
+    local str = "hello"
+    
+    test('When the length provided is less than or equal to the length of the string, ' ..
+         'it should return the string itself', function()
+      assert_equal(str:rjust(#str - 1), str)
+      assert_equal(str:rjust(#str), str)
+    end)
+    
+    test('When the length provided is greater than the length of the string, it should pad it properly', function()
+      local justified = str:rjust(#str + 10)
+      assert_equal(justified, (' ' * 10) .. str)
+      assert_equal(#justified, #str + 10)
+    end)
+    
+    test('It should pad with the string provided (if one is provided)', function()
+      assert_equal(str:rjust(#str + 2, '!'), '!!' .. str)
+    end)
   end)
 end)
