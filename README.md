@@ -28,3 +28,4 @@ The tests are done using [telescope](https://github.com/norman/telescope). Have 
 # Contributors
 
 * [Robin Wellner](http://gvxdev.wordpress.com/) helped to improve performance of `insert` and also added a couple new abilities to that method.
+* [TsT](http://love2d.org/wiki/User:TsT) helped to make `split` have an option to turn on plain text.
