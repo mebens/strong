@@ -83,15 +83,23 @@ function string:eachLine(...)
 end
 
 function string:endsWith(suffix)
-  return self:sub(self:len() - suffix:len()) == suffix
+  return self:sub(-suffix:len(), -1) == suffix
 end
 
 function string:includes(pat)
   return self:find(pat) ~= nil
 end
 
+-- FIXME: This doesn't handle negative indicies by looks of it
 function string:insert(index, other)
-  return self:gsub('(' .. '.' * (index - 1) .. ')(.)', '%1' .. other .. '%2')
+  -- if index is 1, there will be no captures in the first part
+  -- Lua seems to insert just a plain 1 into the string in this case
+  
+  if index > 1 then
+    return self:gsub('^(' .. ('.' * (index - 1)) .. ')(.)', '%1' .. other .. '%2')
+  else
+    return self:gsub('^(.)', other .. '%1')
+  end
 end
 
 function string:ljust(int, padstr)
@@ -108,7 +116,7 @@ end
 
 function string:rjust(int, padstr)
   local len = self:len()
-  if int > len then self = (padstr or ' ') * (int - len) .. self end
+  if int > len then self = ((padstr or ' ') * (int - len)) .. self end
   return self
 end
 

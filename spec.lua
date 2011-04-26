@@ -113,14 +113,21 @@ context('Methods', function()
   end)
   
   test('endsWith', function()
-  
+    assert_true(("foobar!"):endsWith("ar!"))
+    assert_false(("foobar!"):endsWith("Please return false"))
   end)
   
   test('includes', function()
-  
+    assert_true(("foobar!"):includes("oba"))
+    assert_false(("foobar!"):includes("nada"))
   end)
   
   test('insert', function()
+    assert_equal(("world"):insert(1, "hello "), "hello world")
+    assert_equal(("far!"):insert(2, "oob"), "foobar!")
+  end)
   
+  context('lstrip', function()
+    
   end)
 end)
