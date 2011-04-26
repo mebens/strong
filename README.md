@@ -24,3 +24,7 @@ I'm yet to write out a feature list or documentation. However, strong adds many 
 The tests are done using [telescope](https://github.com/norman/telescope). Have a look at the [README](https://github.com/norman/telescope#readme) for that repository to see how to install telescope. Once you've done that, just run `tsc spec.lua`.
 
 [rb-string]: http://www.ruby-doc.org/core/classes/String.html
+
+# Contributors
+
+* [Robin Wellner](http://gvxdev.wordpress.com/) helped to improve performance of `insert` and also added a couple new abilities to that method.
