@@ -32,8 +32,15 @@ context('String operators', function()
     assert_equal('a' * 8, 'aaaaaaaa')
   end)
   
-  test('Divide', function()
-    assert_true(testContents('a,b,c,deee' / ',', 'a', 'b', 'c', 'deee'))
+  context('Divide', function()
+    test('It should act like split', function()
+      local str = 'a,b,c,deee'
+      assert_true(testContents(str / ',', unpack(str:split(','))))
+    end)
+    
+    test('It should default to plain text splitting', function()
+      assert_true(testContents('a.b.c' / '.', 'a', 'b', 'c'))
+    end)
   end)
 end)
 
@@ -94,7 +101,7 @@ context('Methods', function()
   
   context('chomp', function()
     test('When calling without a separater it should remove newlines', function()
-    
+      
     end)
     
     test('When calling with a separator it should remove the whatever specified', function()
@@ -203,5 +210,56 @@ context('Methods', function()
     test('It should pad with the string provided (if one is provided)', function()
       assert_equal(str:rjust(#str + 2, '!'), '!!' .. str)
     end)
+  end)
+  
+  context('rstrip', function()
+    test('It should strip spaces and tabs', function()
+      assert_equal(('hello   \t  '):rstrip(), 'hello')
+    end)
+    
+    test('It should strip newlines', function()
+      assert_equal(('hey\n\n'):rstrip(), 'hey')
+      assert_equal(('hey\r\n'):rstrip(), 'hey')
+    end)
+    
+    test('It should not strip to the left or the middle', function()
+      assert_equal(('  hello world  '):rstrip(), '  hello world')
+    end)
+  end)
+  
+  context('split', function()
+    test('It should split a string up properly', function()
+      assert_true(testContents(('hello!world!foo!bar'):split('!'), 'hello', 'world', 'foo', 'bar'))
+    end)
+    
+    test('It should accept patterns by default', function()
+      assert_true(testContents(('hello1world2foo'):split('%d'), 'hello', 'world', 'foo'))
+    end)
+    
+    test('It should accept an option to turn off patterns', function()
+      assert_true(testContents(('com.nowhere.nada'):split('.', true), 'com', 'nowhere', 'nada'))
+    end)
+  end)
+  
+  context('squeeze', function()
+    test('When a string is not specified, remove all duplicates', function()
+      assert_equal(('helloo'):squeeze(), 'helo')
+      assert_equal(('boo!!!'):squeeze(), 'bo!')
+    end)
+    
+    test('When a string is specified, remove duplicates of it', function()
+      assert_equal(('helloo'):squeeze('o'), 'hello')
+      assert_equal(('boo!!!'):squeeze('!'), 'boo!')
+    end)
+  end)
+  
+  test('startsWith', function()
+    assert_true(('001 hello world'):startsWith('001 '))
+    assert_false(('blah'):startsWith('foo'))
+  end)
+  
+  test('strip', function()
+    local str = ' \t\n  hello world  '
+    assert_equal(str:strip(), str:lstrip():rstrip())
   end)
 end)

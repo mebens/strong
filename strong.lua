@@ -102,7 +102,13 @@ end
 
 function string:ljust(int, padstr)
   local len = self:len()
-  if int > len then self = self .. (padstr or ' ') * (int - len) end
+  
+  if int > len then
+    self = self .. (padstr or ' ') * math.floor((int - len) / padstr:len())
+    
+    if self:len < int
+  end
+  
   return self
 end
 
@@ -151,9 +157,9 @@ end
 
 function string:squeeze(other)
   if other then
-    return self:gsub(other .. '{2,}', other)
+    return self:gsub(other .. other .. '+', other)
   else
-    return self:gsub('(.){2,}', '%1')
+    return self:gsub('(.)%1+', '%1') -- this doesn't work
   end
 end
 
