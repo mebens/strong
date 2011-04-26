@@ -107,12 +107,13 @@ function string:insert(index, other)
 end
 
 function string:ljust(int, padstr)
-  local len = self:len()
+  local len = #self
   
   if int > len then
-    self = self .. (padstr or ' ') * math.floor((int - len) / padstr:len())
-    
-    if self:len < int
+    local num = padstr and math.floor((int - len) / padstr:len()) or int - len
+    self = self .. (padstr or ' ') * num
+    len = #self
+    if len < int then self = self .. padstr:sub(1, int - len) end
   end
   
   return self
@@ -134,8 +135,15 @@ function string:next()
 end
 
 function string:rjust(int, padstr)
-  local len = self:len()
-  if int > len then self = ((padstr or ' ') * (int - len)) .. self end
+  local len = #self
+  
+  if int > len then
+    local num = padstr and math.floor((int - len) / padstr:len()) or int - len
+    self = ((padstr or ' ') * num) .. self
+    len = #self
+    if len < int then self = padstr:sub(1, int - len) .. self end
+  end
+  
   return self
 end
 

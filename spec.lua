@@ -163,6 +163,12 @@ context('Methods', function()
     test('It should pad with the string provided (if one is provided)', function()
       assert_equal(str:ljust(#str + 2, '!'), str .. '!!')
     end)
+    
+    test('It should be the correct length when the padding string is more than one character', function()
+      local justified = str:ljust(#str + 10, '!!!')
+      assert_equal(justified, str .. ('!' * 10))
+      assert_equal(#justified, #str + 10)
+    end)
   end)
   
   context('lstrip', function()
@@ -209,6 +215,12 @@ context('Methods', function()
     
     test('It should pad with the string provided (if one is provided)', function()
       assert_equal(str:rjust(#str + 2, '!'), '!!' .. str)
+    end)
+    
+    test('It should be the correct length when the padding string is more than one character', function()
+      local justified = str:rjust(#str + 10, '!!!')
+      assert_equal(justified, ('!' * 10) .. str)
+      assert_equal(#justified, #str + 10)
     end)
   end)
   
