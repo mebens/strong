@@ -122,9 +122,20 @@ context('Methods', function()
     assert_false(("foobar!"):includes("nada"))
   end)
   
-  test('insert', function()
-    assert_equal(("world"):insert(1, "hello "), "hello world")
-    assert_equal(("far!"):insert(2, "oob"), "foobar!")
+  context('insert', function()
+    test('Greater than zero indicies', function()
+      assert_equal(("world"):insert(1, "hello "), "hello world")
+      assert_equal(("far!"):insert(2, "oob"), "foobar!")
+    end)
+    
+    test('Zero indicies should just concatenate', function()
+      assert_equal(("hello"):insert(0, " world"), "hello world")
+    end)
+    
+    test('Negative indicies', function()
+      assert_equal(("hello"):insert(-1, "ooo"), "helloooo")
+      assert_equal(("hello"):insert(-3, "ll"), "hellllo")
+    end)
   end)
   
   context('lstrip', function()

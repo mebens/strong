@@ -88,15 +88,15 @@ function string:includes(pat)
   return self:find(pat) ~= nil
 end
 
--- FIXME: This doesn't handle negative indicies by looks of it
 function string:insert(index, other)
-  -- if index is 1, there will be no captures in the first part
-  -- Lua seems to insert just a plain 1 into the string in this case
+  index = index % (#self + 1)
   
-  if index > 1 then
-    return self:gsub('^(' .. ('.' * (index - 1)) .. ')(.)', '%1' .. other .. '%2')
+  if index == 1 then
+    return other .. self
+  elseif index == 0 then
+    return self .. other
   else
-    return self:gsub('^(.)', other .. '%1')
+    return self:sub(1, index - 1) .. other .. self:sub(index)
   end
 end
 
