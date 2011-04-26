@@ -88,8 +88,14 @@ function string:includes(pat)
   return self:find(pat) ~= nil
 end
 
+-- insertion postion:
+-- ---------------------
+-- | A | B | C | D | E |
+-- ---------------------
+-- 1   2   3   4   5   6
+-- -6 -5  -4  -3  -2  -1
 function string:insert(index, other)
-  index = index % (#self + 1)
+  index = (index < 0 and index + 1 or index) % (#self + 1)
   
   if index == 1 then
     return other .. self
