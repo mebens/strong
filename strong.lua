@@ -122,14 +122,14 @@ function string:split(pat)
   
   while true do
     local pos1, pos2 = self:find(pat)
-    
-    if not pos then
+
+    if not pos1 then
       t[#t + 1] = self
       return t
     end
     
     t[#t + 1] = self:sub(1, pos1 - 1)
-    self = self:sub(po2 + 1)
+    self = self:sub(pos2 + 1)
   end
 end
 
