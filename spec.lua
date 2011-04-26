@@ -100,22 +100,32 @@ context('Methods', function()
   end)
   
   context('chomp', function()
-    test('When calling without a separater it should remove newlines', function()
-      
+    test('When calling without a separator it should remove newlines', function()
+      assert_equal(("hello\n\n"):chomp(), 'hello')
+      assert_equal(("hello\r\n\r"):chomp(), 'hello')
     end)
     
     test('When calling with a separator it should remove the whatever specified', function()
+      assert_equal(("hello...."):chomp('%.'), 'hello')
+    end)
     
+    test("It shouldn't remove the separator anywhere else than the end", function()
+      assert_equal(("\n\nhello\n"):chomp(), '\n\nhello')
+      assert_equal(("..hello.."):chomp('%.'), '..hello')
     end)
   end)
   
   context('eachLine', function()
     test('When calling with a separator it should use it to split the string', function()
-    
+      local t = {}
+      ("foo|bar|ha"):eachLine('|', function(line) table.insert(t, line) end)
+      assert_true(testContents(t, 'foo', 'bar', 'ha'))
     end)
     
     test('When calling without a separator it should go through each line', function()
-    
+      local t = {}
+      ("foo\nbar\r\nha"):eachLine(function(line) table.insert(t, line) end)
+      assert_true(testContents(t, 'foo', 'bar', 'ha'))
     end)
   end)
   

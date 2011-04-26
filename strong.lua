@@ -58,11 +58,13 @@ function string:chars(func)
 end
 
 function string:chomp(sep)
-  return string:gsub((sep or "(\n|\r|\r\n)") .. '$', '')
+  return self:gsub((sep or "[\n\r]") .. '+$', '')
 end
 
+-- this doesn't behave like Ruby in that it discards the separator
+-- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
 function string:eachLine(...)
-  local sep = "(\n|\r|\r\n)"
+  local sep = "[\n\r]+"
   local func
   
   if select('#', ...) == 2 then
@@ -173,7 +175,7 @@ function string:squeeze(other)
   if other then
     return self:gsub(other .. other .. '+', other)
   else
-    return self:gsub('(.)%1+', '%1') -- this doesn't work
+    return self:gsub('(.)(%1+)', '%1') -- this doesn't work
   end
 end
 
