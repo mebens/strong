@@ -17,7 +17,7 @@ I'm yet to write out a feature list or documentation. However, strong adds many 
 * +: `a + b == a .. b`
 * -: `a - b == a:gsub(b, '')`. Example: `"Hello" - 'l' == 'Heo'`.
 * *: `a * b == a:rep(b)`. Example: `'a' * 3 == 'aaa'`.
-* /: `a / b == a:split(b)`. See the `split` method.
+* /: `a / b == a:split(b, true)`. See the `split` method.
 
 # Tests
 

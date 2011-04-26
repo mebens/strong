@@ -6,7 +6,7 @@ local mt = getmetatable("")
 function mt.__add(a, b) return a .. b end
 function mt.__sub(a, b) return a:gsub(b, "") end
 function mt.__mul(a, b) return a:rep(b) end
-function mt.__div(a, b) return a:split(b) end
+function mt.__div(a, b) return a:split(b, true) end
 
 -- INDEXING --
 
@@ -131,12 +131,13 @@ function string:rstrip()
   return self:gsub('[\r\n\t ]+$', '')
 end
 
--- credits go to thelinx: https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua#L6
-function string:split(pat)
+-- credits go to thelinx for most of this function
+-- https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua#L6
+function string:split(pat, plain)
   local t = {}
   
   while true do
-    local pos1, pos2 = self:find(pat)
+    local pos1, pos2 = self:find(pat, 1, plain or false)
 
     if not pos1 then
       t[#t + 1] = self
