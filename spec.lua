@@ -1,10 +1,9 @@
 require('strong')
 
-function testSplit(t, ...)
+function testContents(t, ...)
   local args = {...}
   
   for i = 1, #args do
-    print(i, t[i], args[i])
     if t[i] ~= args[i] then
       return false
     end
@@ -34,7 +33,7 @@ context('String operators', function()
   end)
   
   test('Divide', function()
-    assert_true(testSplit('a,b,c,deee' / ',', 'a', 'b', 'c', 'deee'))
+    assert_true(testContents('a,b,c,deee' / ',', 'a', 'b', 'c', 'deee'))
   end)
 end)
 
@@ -66,6 +65,20 @@ context('Indexing', function()
 end)
 
 context('Methods', function()
+  context('bytes', function()
+    local str = "hello"
+    
+    test('When calling with a function it should iterate', function()
+      local t = {}
+      str:bytes(function(b) table.insert(t, b) end)
+      assert_true(testContents(t, 104, 101, 108, 108, 111))
+    end)
+    
+    test('When not calling with a function it should return a table of bytes', function()
+      assert_true(testContents(str:bytes(), 104, 101, 108, 108, 111))
+    end)
+  end)
+  
   test('capitalize', function()
     for _, v in pairs{'hello', 'HeLlO', 'hELLO', 'HELLo'} do
       assert_equal(v:capitalize(), 'Hello')
@@ -77,5 +90,37 @@ context('Methods', function()
     local result = { 'h', 'e', 'l', 'l', 'o' }
     ("hello"):chars(function(c) table.insert(t, c) end)
     for i = 1, #result do assert_equal(t[i], result[i]) end
+  end)
+  
+  context('chomp', function()
+    test('When calling without a separater it should remove newlines', function()
+    
+    end)
+    
+    test('When calling with a separator it should remove the whatever specified', function()
+    
+    end)
+  end)
+  
+  context('eachLine', function()
+    test('When calling with a separator it should use it to split the string', function()
+    
+    end)
+    
+    test('When calling without a separator it should go through each line', function()
+    
+    end)
+  end)
+  
+  test('endsWith', function()
+  
+  end)
+  
+  test('includes', function()
+  
+  end)
+  
+  test('insert', function()
+  
   end)
 end)

@@ -41,7 +41,7 @@ function string:bytes(func)
   if func then
     for i = 1, self:len() do func(self[i]:byte()) end
   else
-    return self:byte(1, -1)
+    return { self:byte(1, -1) }
   end
 end
 
