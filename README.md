@@ -4,7 +4,7 @@ Strong is a small Lua library that adds a lot of utilities to Lua's [string libr
 
 Strong is based largely on Ruby's [String class][rb-string]. I've also taken a few things from [thelinx](http://github.com/thelinx)'s [extensions](https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua) to strings.
 
-**Warning**: Some features don't work at all, and many aren't tested yet. This is up here at the moment for people to take a look at and contribute.
+**Warning**: Constructing tests for this library is still under way. Some features may not work, and some aren't tested.
 
 ## The Name
 
