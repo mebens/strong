@@ -4,7 +4,7 @@ Strong is a small Lua library that adds a lot of utilities to Lua's [string libr
 
 Strong is based largely on Ruby's [String class][rb-string]. I've also taken a few things from [thelinx](http://github.com/thelinx)'s [extensions](https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua) to strings.
 
-**Warning**: Constructing tests for this library is still under way. Some features may not work, and some aren't tested.
+**Warning**: This library is still under early development. See the the Bug/Problems section for more details.
 
 ## The Name
 
@@ -18,6 +18,10 @@ I'm yet to write out a feature list or documentation. However, strong adds many 
 * -: `a - b == a:gsub(b, '')`. Example: `"Hello" - 'l' == 'Heo'`.
 * *: `a * b == a:rep(b)`. Example: `'a' * 3 == 'aaa'`.
 * /: `a / b == a:split(b, true)`. See the `split` method.
+
+# Bugs/Problems
+
+All methods have tests for them at current. Only one thing is known to be non-working, and that is [this test](https://github.com/BlackBulletIV/strong/blob/master/spec.lua#L267) for the `squeeze` method. The only way I can think of fixing it is using a very inefficient approach of checking every character in the string, which doesn't sound good. If anyone's got suggestions I'd love to hear them.
 
 # Tests
 
