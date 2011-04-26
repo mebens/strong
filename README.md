@@ -21,11 +21,11 @@ I'm yet to write out a feature list or documentation. However, strong adds many 
 
 # Tests
 
-The tests are done using [telescope](https://github.com/norman/telescope). Have a look at the [README](https://github.com/norman/telescope#readme) for that repository to see how to install telescope. Once you've done that, just run `tsc spec.lua`.
-
-[rb-string]: http://www.ruby-doc.org/core/classes/String.html
+The tests are done using [telescope](https://github.com/norman/telescope). Have a look at the [README](https://github.com/norman/telescope#readme) for that repository to see how to install telescope. Once you've done that, just run `tsc spec.lua`. Of course if you want to see the results of every test, you can run `tsc -f spec.lua`.
 
 # Contributors
 
 * [Robin Wellner](http://gvxdev.wordpress.com/) helped to improve performance of `insert` and also added a couple new abilities to that method.
 * [TsT](http://love2d.org/wiki/User:TsT) helped to make `split` have an option to turn on plain text.
+
+[rb-string]: http://www.ruby-doc.org/core/classes/String.html
