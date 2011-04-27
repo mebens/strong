@@ -174,6 +174,10 @@ context('Methods', function()
       assert_false(("AAbb"):isLower())
       assert_false(("!$@#$A"):isLower())
     end)
+    
+    test("Should return false for empty strings", function()
+      assert_false((""):isUpper())
+    end)
   end)
   
   context("isUpper", function()
@@ -194,6 +198,10 @@ context('Methods', function()
       assert_true(("AAAAAB"):isUpper())
       assert_false(("AAbb"):isUpper())
       assert_false(("!$@#$A"):isUpper())
+    end)
+    
+    test("Should return false for empty strings", function()
+      assert_false((""):isUpper())
     end)
   end)
   
