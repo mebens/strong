@@ -155,6 +155,48 @@ context('Methods', function()
     end)
   end)
   
+  context("isLower", function()
+    test("Should return true for lower case letters", function()
+      assert_true(("a"):isLower())
+    end)
+    
+    test("Should return false for numbers and anything else", function()
+      assert_false(("1"):isLower())
+      assert_false(("!"):isLower())
+    end)
+    
+    test("Should return false for upper case letters", function()
+      assert_false(("A"):isLower())
+    end)
+    
+    test("Should handle multi-character strings", function()
+      assert_true(("aaaabb"):isLower())
+      assert_false(("AAbb"):isLower())
+      assert_false(("!$@#$A"):isLower())
+    end)
+  end)
+  
+  context("isUpper", function()
+    test("Should return false for lower case letters", function()
+      assert_false(("a"):isUpper())
+    end)
+    
+    test("Should return false for numbers and anything else", function()
+      assert_false(("1"):isUpper())
+      assert_false(("!"):isUpper())
+    end)
+    
+    test("Should return true for upper case letters", function()
+      assert_true(("A"):isUpper())
+    end)
+    
+    test("Should handle multi-character strings", function()
+      assert_true(("AAAAAB"):isUpper())
+      assert_false(("AAbb"):isUpper())
+      assert_false(("!$@#$A"):isUpper())
+    end)
+  end)
+  
   context('ljust', function()
     local str = "hello"
     
@@ -283,5 +325,11 @@ context('Methods', function()
   test('strip', function()
     local str = ' \t\n  hello world  '
     assert_equal(str:strip(), str:lstrip():rstrip())
+  end)
+  
+  test("swapcase", function()
+    assert_equal(("HeLLoO"):swapcase(), "hEllOo")
+    assert_equal(("goo"):swapcase(), "GOO")
+    assert_equal(("GOO"):swapcase(), "goo")
   end)
 end)

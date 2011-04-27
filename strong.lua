@@ -108,6 +108,30 @@ function string:insert(index, other)
   end
 end
 
+function string:isLower()
+  if #self == 0 then return false end
+  
+  for i = 1, #self do
+    if not (self[i] >= 'a' and self[i] <= 'z') then
+      return false
+    end
+  end
+  
+  return true
+end
+
+function string:isUpper()
+  if #self == 0 then return false end
+  
+  for i = 1, #self do
+    if not (self[i] >= 'A' and self[i] <= 'Z') then
+      return false
+    end
+  end
+  
+  return true
+end
+
 function string:ljust(int, padstr)
   local len = #self
   
@@ -187,4 +211,11 @@ function string:strip()
   return self:lstrip():rstrip()
 end
 
--- TODO: swapcase
+local function swapChar(c)
+  if c:isUpper() then return c:lower() end
+  return c:upper()
+end
+
+function string:swapcase()
+  return self:gsub('%a', swapChar)
+end
