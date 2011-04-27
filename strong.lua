@@ -18,15 +18,6 @@ function mt:__index(key)
   end
 end
 
--- this doesn't work, strings are immutable
---[[function mt:__newindex(key, value)
-  if type(key) == 'number' then
-    self:gsub('(' .. '.' * (key - 1) .. ')' .. '(.)', '%1' .. (value or ''))
-  else
-    rawset(self, key, value) -- whatever error this gives...
-  end
-end]]
-
 function mt:__call(i, j)
   if type(i) == 'string' then
     return self:match(i, j)
