@@ -70,21 +70,8 @@ function string:chars()
   return iter, { t = self, i = 0 }
 end
 
-function string:chomp(sep)
-  return self:gsub((sep or "[\n\r]") .. '+$', '')
-end
-
--- this doesn't behave like Ruby in that it discards the separator
--- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
-function string:lines(sep, all)
-  if type(sep) == 'boolean' then all, sep = sep, nil end
-  local lines = self:split(sep or "[\n\r]+")
-  
-  if all then
-    return lines
-  else
-    return iter, { t = lines, i = 0 }
-  end
+function string:chomp(pat)
+  return self:gsub((pat or "[\n\r]") .. '+$', '')
 end
 
 function string:endsWith(suffix)
@@ -135,6 +122,19 @@ function string:isUpper()
   end
   
   return true
+end
+
+-- this doesn't behave like Ruby in that it discards the separator
+-- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
+function string:lines(sep, all)
+  if type(sep) == 'boolean' then all, sep = sep, nil end
+  local lines = self:split(sep or "[\n\r]+")
+  
+  if all then
+    return lines
+  else
+    return iter, { t = lines, i = 0 }
+  end
 end
 
 function string:ljust(int, padstr)
