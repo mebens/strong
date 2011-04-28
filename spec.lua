@@ -127,11 +127,11 @@ context('Methods', function()
     end)
   end)
   
-  context('eachLine', function()
+  context('lines', function()
     test('When calling with a separator it should use it to split the string', function()
       local t = {}
       
-      for line in ("foo|bar|ha"):eachLine('|') do
+      for line in ("foo|bar|ha"):lines('|') do
         table.insert(t, line)
       end
       
@@ -141,7 +141,7 @@ context('Methods', function()
     test('When calling without a separator it should go through each line', function()
       local t = {}
       
-      for line in ("foo\nbar\r\nha"):eachLine() do
+      for line in ("foo\nbar\r\nha"):lines() do
         table.insert(t, line)
       end
       

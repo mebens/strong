@@ -76,7 +76,7 @@ end
 
 -- this doesn't behave like Ruby in that it discards the separator
 -- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
-function string:eachLine(sep, all)
+function string:lines(sep, all)
   if type(sep) == 'boolean' then all, sep = sep, nil end
   local lines = self:split(sep or "[\n\r]+")
   
