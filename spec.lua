@@ -47,10 +47,17 @@ end)
 context('Indexing', function()
   local str = 'Hello!'
 
-  test('s[i] type indexing', function()
-    assert_equal(str[1], 'H')
-    assert_equal(str[4], 'l')
-    assert_equal(str[-1], '!')
+  context('s[i] type indexing', function()
+    test("It should be able to index positive and negative indicies", function()
+      assert_equal(str[1], 'H')
+      assert_equal(str[4], 'l')
+      assert_equal(str[-1], '!')
+    end)
+    
+    test("It should return nil for out of range indicies", function()
+      assert_nil(str[0])
+      assert_nil(str[10])
+    end)
   end)
   
   context('s(i, j) type indexing', function()
@@ -68,6 +75,12 @@ context('Indexing', function()
       assert_equal(str('ll'), 'll')
       assert_nil(str('foo'))
     end)
+    
+    test("It should return nil for out of range indicies", function()
+      assert_nil(str(0))
+      assert_nil(str(10))
+      assert_nil(str(10, -2))
+    end)
   end)
 end)
 
@@ -75,14 +88,14 @@ context('Methods', function()
   context('bytes', function()
     local str = "hello"
     
-    test('When calling with a function it should iterate', function()
+    test('When calling normally it should provide an iterator', function()
       local t = {}
-      str:bytes(function(b) table.insert(t, b) end)
+      for b in str:bytes() do table.insert(t, b) end
       assert_true(testContents(t, 104, 101, 108, 108, 111))
     end)
     
-    test('When not calling with a function it should return a table of bytes', function()
-      assert_true(testContents(str:bytes(), 104, 101, 108, 108, 111))
+    test('When not calling with first parameter as true, it should provide a table of all bytes', function()
+      assert_true(testContents(str:bytes(true), 104, 101, 108, 108, 111))
     end)
   end)
   
@@ -94,9 +107,8 @@ context('Methods', function()
   
   test('chars', function()
     local t = {}
-    local result = { 'h', 'e', 'l', 'l', 'o' }
-    ("hello"):chars(function(c) table.insert(t, c) end)
-    for i = 1, #result do assert_equal(t[i], result[i]) end
+    for c in ("hello"):chars() do table.insert(t, c) end
+    assert_true(testContents(t, 'h', 'e', 'l', 'l', 'o'))
   end)
   
   context('chomp', function()
@@ -118,13 +130,21 @@ context('Methods', function()
   context('eachLine', function()
     test('When calling with a separator it should use it to split the string', function()
       local t = {}
-      ("foo|bar|ha"):eachLine('|', function(line) table.insert(t, line) end)
+      
+      for line in ("foo|bar|ha"):eachLine('|') do
+        table.insert(t, line)
+      end
+      
       assert_true(testContents(t, 'foo', 'bar', 'ha'))
     end)
     
     test('When calling without a separator it should go through each line', function()
       local t = {}
-      ("foo\nbar\r\nha"):eachLine(function(line) table.insert(t, line) end)
+      
+      for line in ("foo\nbar\r\nha"):eachLine() do
+        table.insert(t, line)
+      end
+      
       assert_true(testContents(t, 'foo', 'bar', 'ha'))
     end)
   end)

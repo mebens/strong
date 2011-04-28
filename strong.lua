@@ -1,4 +1,24 @@
+-- PRIVATE FUNCTIONS --
+
+local function swapChar(c)
+  if c:isUpper() then return c:lower() end
+  return c:upper()
+end
+
+local function iter(state)
+  state.i = state.i + 1
+  local v = state.t[state.i]
+  if v then return v end
+end
+
+local function byteIter(state)
+  state.i = state.i + 1
+  local v = state.t[state.i]
+  if v then return v:byte() end
+end
+
 -- METATABLE --
+
 local mt = getmetatable("")
 
 -- OPERATORS --
@@ -12,6 +32,8 @@ function mt.__div(a, b) return a:split(b, true) end
 
 function mt:__index(key)
   if type(key) == 'number' then
+    local len = #self
+    if key > len or key < -len or key == 0 then return nil end
     return self:sub(key, key)
   else
     return string[key]
@@ -22,17 +44,19 @@ function mt:__call(i, j)
   if type(i) == 'string' then
     return self:match(i, j)
   else
+    local len = #self
+    if i > len or i < -len or i == 0 then return nil end
     return self:sub(i, j or i)
   end
 end
 
 -- METHODS --
 
-function string:bytes(func)
-  if func then
-    for i = 1, self:len() do func(self[i]:byte()) end
-  else
+function string:bytes(all)
+  if all then
     return { self:byte(1, -1) }
+  else
+    return byteIter, { t = self, i = 0 }
   end
 end
 
@@ -42,8 +66,8 @@ end
 
 -- TODO: center
 
-function string:chars(func)
-  for i = 1, self:len() do func(self[i]) end
+function string:chars()
+  return iter, { t = self, i = 0 }
 end
 
 function string:chomp(sep)
@@ -52,22 +76,14 @@ end
 
 -- this doesn't behave like Ruby in that it discards the separator
 -- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
-function string:eachLine(...)
-  local sep = "[\n\r]+"
-  local func
+function string:eachLine(sep, all)
+  if type(sep) == 'boolean' then all, sep = sep, nil end
+  local lines = self:split(sep or "[\n\r]+")
   
-  if select('#', ...) == 2 then
-    sep, func = ...
-  else
-    func = select(1, ...)
-  end
-  
-  local lines = self:split(sep)
-  
-  if func then
-    for i = 1, #lines do func(lines[i]) end
-  else
+  if all then
     return lines
+  else
+    return iter, { t = lines, i = 0 }
   end
 end
 
@@ -143,7 +159,7 @@ function string:next()
   if self:len() == 1 then
     return string.char(self:byte() + 1)
   else
-    local bytes = self:bytes()
+    local bytes = self:bytes(true)
     for i = 1, #bytes do bytes[i] = bytes[i] + 1 end
     return string.char(unpack(bytes))
   end
@@ -224,11 +240,6 @@ end
 
 function string:strip()
   return self:lstrip():rstrip()
-end
-
-local function swapChar(c)
-  if c:isUpper() then return c:lower() end
-  return c:upper()
 end
 
 function string:swapcase()
