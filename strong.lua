@@ -43,9 +43,7 @@ end
 -- TODO: center
 
 function string:chars(func)
-  if func then
-    for i = 1, self:len() do func(self[i]) end
-  end
+  for i = 1, self:len() do func(self[i]) end
 end
 
 function string:chomp(sep)
@@ -190,7 +188,33 @@ function string:squeeze(other)
   if other then
     return self:gsub(other .. other .. '+', other)
   else
-    return self:gsub('(.)(%1+)', '%1') -- this doesn't work
+    local last -- The last character seen
+    local count = 1 -- Used to track how many identical characters in a row have been seen
+    
+    -- Because we're gsubing, we're changing the length of the string mid-loop.
+    -- The loop keeps using the original length. These variables help us to adjust
+    -- the iterator variable to what it should be.
+    local diff = 0 -- difference between current length and original length
+    local origLen = #self
+    
+    for i = 1, origLen do
+      i = i - diff
+      local c = self[i]
+      
+      if c == last then
+        count = count + 1
+      elseif count > 1 then
+        self = self:sub(1, i - count) .. self:sub(i)
+        diff = origLen - #self
+        count = 1
+      end
+      
+      last = c
+    end
+    
+    -- if the last character was a repition we must take care of it here, as loop has ended
+    if count > 1 then self = self:sub(1, #self - count) .. self[#self] end
+    return self
   end
 end
 
