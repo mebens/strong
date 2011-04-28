@@ -17,7 +17,7 @@ To get an idea of strong's features, take a look at the [wiki](https://github.co
 A quick example of a few of the features.
 
 ``` lua
-s = "Hello world.\nBoo. This is cool.\Hey!"
+s = "Hello world.\nBoo. This is cool.\nHey!"
 
 for line in s:lines() do
   local sentences = line / '.%s*'
