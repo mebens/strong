@@ -78,8 +78,8 @@ function string:endsWith(suffix)
   return self:sub(-suffix:len(), -1) == suffix
 end
 
-function string:includes(pat)
-  return self:find(pat) ~= nil
+function string:includes(pat, plain)
+  return self:find(pat, 1, plain) ~= nil
 end
 
 -- insertion postion:
