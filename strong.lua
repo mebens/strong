@@ -1,3 +1,6 @@
+-- strong 1.0 - Michael Ebens
+-- Licensed under the zlib/libpng license. See LICENSE.txt.
+
 -- PRIVATE FUNCTIONS --
 
 local function swapChar(c)
