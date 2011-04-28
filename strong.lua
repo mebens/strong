@@ -101,27 +101,11 @@ function string:insert(index, other)
 end
 
 function string:isLower()
-  if #self == 0 then return false end
-  
-  for i = 1, #self do
-    if not (self[i] >= 'a' and self[i] <= 'z') then
-      return false
-    end
-  end
-  
-  return true
+  return self:match('^%l+$') ~= nil
 end
 
 function string:isUpper()
-  if #self == 0 then return false end
-  
-  for i = 1, #self do
-    if not (self[i] >= 'A' and self[i] <= 'Z') then
-      return false
-    end
-  end
-  
-  return true
+  return self:match('^%u+$') ~= nil
 end
 
 -- this doesn't behave like Ruby in that it discards the separator
