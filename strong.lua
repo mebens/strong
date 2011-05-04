@@ -78,7 +78,7 @@ function string:chomp(pat)
 end
 
 function string:endsWith(suffix)
-  return self:sub(-suffix:len(), -1) == suffix
+  return self:sub(-#suffix, -1) == suffix
 end
 
 function string:includes(pat, plain)
@@ -128,7 +128,7 @@ function string:ljust(int, padstr)
   local len = #self
   
   if int > len then
-    local num = padstr and math.floor((int - len) / padstr:len()) or int - len
+    local num = padstr and math.floor((int - len) / #padstr) or int - len
     self = self .. (padstr or ' ') * num
     len = #self
     if len < int then self = self .. padstr:sub(1, int - len) end
@@ -143,7 +143,7 @@ end
 
 -- note: this doesn't behave like Ruby's String#next method
 function string:next()
-  if self:len() == 1 then
+  if #self == 1 then
     return string.char(self:byte() + 1)
   else
     local bytes = self:bytes(true)
@@ -156,7 +156,7 @@ function string:rjust(int, padstr)
   local len = #self
   
   if int > len then
-    local num = padstr and math.floor((int - len) / padstr:len()) or int - len
+    local num = padstr and math.floor((int - len) / #padstr) or int - len
     self = ((padstr or ' ') * num) .. self
     len = #self
     if len < int then self = padstr:sub(1, int - len) .. self end
@@ -206,7 +206,7 @@ function string:squeeze(other)
 end
 
 function string:startsWith(prefix)
-  return self:sub(1, prefix:len()) == prefix
+  return self:sub(1, #prefix) == prefix
 end
 
 function string:strip()
