@@ -1,6 +1,6 @@
 # Description
 
-Strong is a small Lua library that adds a lot of utilities to Lua's [string library](http://www.lua.org/manual/5.1/manual.html#5.4), and also adds some operators to strings themselves. It is currently at version 1.0.
+Strong is a small Lua library that adds a lot of utilities to Lua's [string library](http://www.lua.org/manual/5.1/manual.html#5.4), and also adds some operators to strings themselves. It is currently at version 1.0.1.
 
 Strong is based largely on Ruby's [String class](http://www.ruby-doc.org/core/classes/String.html). I've also taken a few things from [thelinx](http://github.com/thelinx)'s [extensions](https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua) to strings.
 
@@ -10,7 +10,7 @@ As you might have guessed, the name "strong" was chosen because it's very close 
 
 # Features/Documentation
 
-To get an idea of strong's features, take a look at the [wiki](https://github.com/BlackBulletIV/strong/wiki). Over there you can find the documentation for the [operators](https://github.com/BlackBulletIV/strong/wiki/Operators) and the [function reference](https://github.com/BlackBulletIV/strong/wiki/Function-reference). Be warned though, the function reference is still being written.
+To get an idea of, or documentation for, strong's features, take a look at the [wiki](https://github.com/BlackBulletIV/strong/wiki). Over there you can find the [function reference](https://github.com/BlackBulletIV/strong/wiki/Function-reference), and documentation for [string indexing](https://github.com/BlackBulletIV/strong/wiki/String-Indexing) and the [operators](https://github.com/BlackBulletIV/strong/wiki/Operators). The function reference isn't entirely complete, there's still some more of it to write.
 
 # Example
 
