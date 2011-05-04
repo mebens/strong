@@ -138,7 +138,7 @@ function string:ljust(int, padstr)
 end
 
 function string:lstrip()
-  return self:gsub('^[\r\n\t ]+', '')
+  return self:gsub('^%s+', '')
 end
 
 -- note: this doesn't behave like Ruby's String#next method
@@ -166,7 +166,7 @@ function string:rjust(int, padstr)
 end
 
 function string:rstrip()
-  return self:gsub('[\r\n\t ]+$', '')
+  return self:gsub('%s+$', '')
 end
 
 -- credits go to thelinx for most of this function
