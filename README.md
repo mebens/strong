@@ -20,9 +20,7 @@ A quick example of a few of the features.
 s = "Hello world.\nBoo. This is cool.\nHey!"
 
 for line in s:lines() do
-  local sentences = line / '.%s*'
-  
-  for _, s in pairs(sentences)
+  for _, s in pairs(line / ' ')
     print(s:capitalize())
   end
 end
