@@ -105,6 +105,20 @@ context('Methods', function()
     end
   end)
   
+  context("center", function()
+    test("It should default to using spaces as the padding character", function()
+      assert_equal(("hello"):center(7), " hello ")
+    end)
+    
+    test("It should evenly justify strings when possible", function()
+      assert_equal(("hello"):center(11), "   hello   ")
+    end)
+    
+    test("It should prefer left-flushing to right-flushing", function()
+      assert_equal(("hello"):center(12), "   hello    ")
+    end)
+  end)
+  
   test('chars', function()
     local t = {}
     for c in ("hello"):chars() do table.insert(t, c) end

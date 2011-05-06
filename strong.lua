@@ -67,7 +67,12 @@ function string:capitalize()
   return self:lower():gsub('^%l', string.upper)
 end
 
--- TODO: center
+function string:center(int, padstr)
+  local len = #self
+  local diff = padstr and math.floor((int - len) / #padstr) or int - len
+  local left = len + math.ceil(diff / 2)
+  return self:ljust(left, padstr):rjust(left + math.floor(diff / 2), padstr)
+end
 
 function string:chars()
   return iter, { t = self, i = 0 }
