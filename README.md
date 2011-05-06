@@ -10,7 +10,7 @@ As you might have guessed, the name "strong" was chosen because it's very close 
 
 # Features/Documentation
 
-To get an idea of, or documentation for, strong's features, take a look at the [wiki](https://github.com/BlackBulletIV/strong/wiki). Over there you can find the [function reference](https://github.com/BlackBulletIV/strong/wiki/Function-reference), and documentation for [string indexing](https://github.com/BlackBulletIV/strong/wiki/String-Indexing) and the [operators](https://github.com/BlackBulletIV/strong/wiki/Operators). The function reference isn't entirely complete, there's still some more of it to write.
+To get an idea of, or documentation for, strong's features, take a look at the [wiki](https://github.com/BlackBulletIV/strong/wiki). Over there you can find the [function reference](https://github.com/BlackBulletIV/strong/wiki/Function-reference), and documentation for [string indexing](https://github.com/BlackBulletIV/strong/wiki/String-Indexing) and the [operators](https://github.com/BlackBulletIV/strong/wiki/Operators).
 
 # Example
 
