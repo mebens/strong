@@ -189,7 +189,7 @@ end
 
 function string:squeeze(other)
   if other then
-    return self:gsub(other .. other .. '+', other)
+    return self:gsub(other .. '(' .. other .. ')+', other)
   else
     local last, current
     local buffer = {}
