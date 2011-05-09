@@ -226,3 +226,10 @@ end
 function string:swapcase()
   return self:gsub('%a', swapChar)
 end
+
+function string:underscore()
+  return self:gsub('([A-Z]+)([A-Z][a-z])', '%1_%2'):
+              gsub('([a-z\d])([A-Z])', '%1_%2'):
+              gsub('[ \t]', '_'):
+              lower()
+end
