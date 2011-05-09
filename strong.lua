@@ -1,4 +1,4 @@
--- strong 1.0.1 - Michael Ebens
+-- strong 1.0.2 - Michael Ebens
 -- Licensed under the zlib/libpng license. See LICENSE.txt.
 
 -- PRIVATE FUNCTIONS --
