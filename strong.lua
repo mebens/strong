@@ -63,6 +63,11 @@ function string:bytes(all)
   end
 end
 
+function string:camelize(upper)
+  self = self:lower():gsub('[ \t_\-](.)', string.upper)
+  return upper and self:gsub('^%l', string.upper) or self 
+end
+
 function string:capitalize()
   return self:lower():gsub('^%l', string.upper)
 end
