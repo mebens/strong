@@ -1,4 +1,4 @@
--- strong 1.0.2 - Michael Ebens
+-- strong 1.0.3 - Michael Ebens
 -- Licensed under the zlib/libpng license. See LICENSE.txt.
 
 -- PRIVATE FUNCTIONS --
@@ -64,7 +64,7 @@ function string:bytes(all)
 end
 
 function string:camelize(upper)
-  self = self:lower():gsub('[ \t_\-](.)', string.upper)
+  self = self:lower():gsub('[ \t_%-](.)', string.upper)
   return upper and self:gsub('^%l', string.upper) or self 
 end
 
@@ -229,7 +229,7 @@ end
 
 function string:underscore()
   return self:gsub('([A-Z]+)([A-Z][a-z])', '%1_%2'):
-              gsub('([a-z\d])([A-Z])', '%1_%2'):
+              gsub('([a-z%d])([A-Z])', '%1_%2'):
               gsub('[ \t]', '_'):
               lower()
 end

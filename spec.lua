@@ -1,6 +1,6 @@
 require('strong')
 
-function testContents(t, ...)
+local function testContents(t, ...)
   local args = {...}
   
   for i = 1, #args do
@@ -11,8 +11,9 @@ function testContents(t, ...)
   
   return true
 end
-
+  
 context('String operators', function()
+  
   test('Add', function()
     assert_equal('Foo' + 'Bar', 'FooBar')
   end)
