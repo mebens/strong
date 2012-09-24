@@ -34,7 +34,7 @@ function mt.__div(a, b) return a:split(b, true) end
 -- INDEXING --
 
 function mt:__index(key)
-  if type(key) == 'number' then
+  if type(key) == "number" then
     local len = #self
     if key > len or key < -len or key == 0 then return nil end
     return self:sub(key, key)
@@ -44,7 +44,7 @@ function mt:__index(key)
 end
 
 function mt:__call(i, j)
-  if type(i) == 'string' then
+  if type(i) == "string" then
     return self:match(i, j)
   else
     local len = #self
@@ -64,12 +64,12 @@ function string:bytes(all)
 end
 
 function string:camelize(upper)
-  self = self:lower():gsub('[ \t_%-](.)', string.upper)
-  return upper and self:gsub('^%l', string.upper) or self 
+  self = self:lower():gsub("[ \t_%-](.)", string.upper)
+  return upper and self:gsub("^%l", string.upper) or self 
 end
 
 function string:capitalize()
-  return self:lower():gsub('^%l', string.upper)
+  return self:lower():gsub("^%l", string.upper)
 end
 
 function string:center(int, padstr)
@@ -84,7 +84,7 @@ function string:chars()
 end
 
 function string:chomp(pat)
-  return self:gsub((pat or "[\n\r]") .. '+$', '')
+  return self:gsub((pat or "[\n\r]") .. "+$", "")
 end
 
 function string:endsWith(suffix)
@@ -114,17 +114,17 @@ function string:insert(index, other)
 end
 
 function string:isLower()
-  return self:match('^%l+$') ~= nil
+  return self:match("^%l+$") ~= nil
 end
 
 function string:isUpper()
-  return self:match('^%u+$') ~= nil
+  return self:match("^%u+$") ~= nil
 end
 
 -- this doesn't behave like Ruby in that it discards the separator
 -- it's method of detecting newlines is a bit dodgy too: \n\n would count as 1 separator
 function string:lines(sep, all)
-  if type(sep) == 'boolean' then all, sep = sep, nil end
+  if type(sep) == "boolean" then all, sep = sep, nil end
   local lines = self:split(sep or "[\n\r]+")
   
   if all then
@@ -139,7 +139,7 @@ function string:ljust(int, padstr)
   
   if int > len then
     local num = padstr and math.floor((int - len) / #padstr) or int - len
-    self = self .. (padstr or ' ') * num
+    self = self .. (padstr or " ") * num
     len = #self
     if len < int then self = self .. padstr:sub(1, int - len) end
   end
@@ -148,7 +148,7 @@ function string:ljust(int, padstr)
 end
 
 function string:lstrip()
-  return self:gsub('^%s+', '')
+  return self:gsub("^%s+", "")
 end
 
 -- note: this doesn't behave like Ruby's String#next method
@@ -167,7 +167,7 @@ function string:rjust(int, padstr)
   
   if int > len then
     local num = padstr and math.floor((int - len) / #padstr) or int - len
-    self = ((padstr or ' ') * num) .. self
+    self = ((padstr or " ") * num) .. self
     len = #self
     if len < int then self = padstr:sub(1, int - len) .. self end
   end
@@ -176,7 +176,7 @@ function string:rjust(int, padstr)
 end
 
 function string:rstrip()
-  return self:gsub('%s+$', '')
+  return self:gsub("%s+$", "")
 end
 
 -- credits go to thelinx for most of this function
@@ -199,18 +199,20 @@ end
 
 function string:squeeze(other)
   if other then
-    return self:gsub(other .. other .. '+', other)
+    return self:gsub(other .. other .. "+", other)
   else
     local last, current
     local buffer = {}
 
     for i = 1, #self do
       current = self[i]
+      
       if current ~= last then
         table.insert(buffer, current)
         last = current
       end
     end
+    
     return table.concat(buffer)
   end
 end
@@ -224,12 +226,12 @@ function string:strip()
 end
 
 function string:swapcase()
-  return self:gsub('%a', swapChar)
+  return self:gsub("%a", swapChar)
 end
 
 function string:underscore()
-  return self:gsub('([A-Z]+)([A-Z][a-z])', '%1_%2'):
-              gsub('([a-z%d])([A-Z])', '%1_%2'):
-              gsub('[ \t]', '_'):
+  return self:gsub("([A-Z]+)([A-Z][a-z])", "%1_%2"):
+              gsub("([a-z%d])([A-Z])", "%1_%2"):
+              gsub("[ \t]", "_"):
               lower()
 end
