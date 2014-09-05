@@ -187,7 +187,7 @@ function string:split(pat, plain)
   while true do
     local pos1, pos2 = self:find(pat, 1, plain or false)
 
-    if not pos1 then
+    if not pos1 or pos1 > pos2 then
       t[#t + 1] = self
       return t
     end
