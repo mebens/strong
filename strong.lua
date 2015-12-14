@@ -30,6 +30,13 @@ function mt.__add(a, b) return a .. b end
 function mt.__sub(a, b) return a:gsub(b, "") end
 function mt.__mul(a, b) return a:rep(b) end
 function mt.__div(a, b) return a:split(b, true) end
+function mt.__mod(a, b)
+   if type(b) == "table" then
+      return a:format(unpack(b))
+   else
+      return a:format(b)
+   end
+end
 
 -- INDEXING --
 
@@ -187,7 +194,7 @@ function string:split(pat, plain)
   while true do
     local pos1, pos2 = self:find(pat, 1, plain or false)
 
-    if not pos1 then
+    if not pos1 or pos1 > pos2 then
       t[#t + 1] = self
       return t
     end
