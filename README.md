@@ -1,6 +1,6 @@
 # Description
 
-Strong is a small Lua library that adds a lot of utilities to Lua's [string library](http://www.lua.org/manual/5.1/manual.html#5.4), and also adds some operators to strings themselves. It is currently at version 1.0.3.
+Strong is a small Lua library that adds a lot of utilities to Lua's [string library](http://www.lua.org/manual/5.1/manual.html#5.4), and also adds some operators to strings themselves. It is currently at version 1.0.4.
 
 Strong is based largely on Ruby's [String class](http://www.ruby-doc.org/core/classes/String.html). I've also taken a few things from [thelinx](http://github.com/thelinx)'s [extensions](https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua) to strings.
 
@@ -34,5 +34,5 @@ The tests are done using [telescope](https://github.com/norman/telescope). Have 
 
 * [Robin Wellner](http://gvxdev.wordpress.com/) helped to improve performance of `insert` and also added a couple new abilities to that method.
 * [kikito](http://github.com/kikito) provided a much better implementation of `squeeze`.
-* [TsT](http://love2d.org/wiki/User:TsT) helped to make `split` have an option to turn on plain text.
+* [TsT](http://love2d.org/wiki/User:TsT) helped to improve and fix the `split` function and added the modulo operator.
 * [Roland Yonaba](http://yonaba.github.com/) provided the solution to a problem with a couple special pattern characters.
