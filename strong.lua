@@ -23,6 +23,9 @@ end
 -- METATABLE --
 
 local mt = getmetatable("")
+if mt.__add then -- already patched the string module.
+  return
+end
 local string = mt.__index
 
 -- OPERATORS --
@@ -73,7 +76,7 @@ end
 
 function string:camelize(upper)
   self = self:lower():gsub("[ \t_%-](.)", string.upper)
-  return upper and self:gsub("^%l", string.upper) or self 
+  return upper and self:gsub("^%l", string.upper) or self
 end
 
 function string:capitalize()
@@ -111,7 +114,7 @@ end
 -- -6 -5  -4  -3  -2  -1
 function string:insert(index, other)
   index = (index < 0 and index + 1 or index) % (#self + 1)
-  
+
   if index == 1 then
     return other .. self
   elseif index == 0 then
@@ -134,7 +137,7 @@ end
 function string:lines(sep, all)
   if type(sep) == "boolean" then all, sep = sep, nil end
   local lines = self:split(sep or "[\n\r]+")
-  
+
   if all then
     return lines
   else
@@ -144,14 +147,14 @@ end
 
 function string:ljust(int, padstr)
   local len = #self
-  
+
   if int > len then
     local num = padstr and math.floor((int - len) / #padstr) or int - len
     self = self .. (padstr or " ") * num
     len = #self
     if len < int then self = self .. padstr:sub(1, int - len) end
   end
-  
+
   return self
 end
 
@@ -172,14 +175,14 @@ end
 
 function string:rjust(int, padstr)
   local len = #self
-  
+
   if int > len then
     local num = padstr and math.floor((int - len) / #padstr) or int - len
     self = ((padstr or " ") * num) .. self
     len = #self
     if len < int then self = padstr:sub(1, int - len) .. self end
   end
-  
+
   return self
 end
 
@@ -191,7 +194,7 @@ end
 -- https://github.com/TheLinx/loveclass/blob/master/stringextensions.lua#L6
 function string:split(pat, plain)
   local t = {}
-  
+
   while true do
     local pos1, pos2 = self:find(pat, 1, plain or false)
 
@@ -199,7 +202,7 @@ function string:split(pat, plain)
       t[#t + 1] = self
       return t
     end
-    
+
     t[#t + 1] = self:sub(1, pos1 - 1)
     self = self:sub(pos2 + 1)
   end
@@ -214,13 +217,13 @@ function string:squeeze(other)
 
     for i = 1, #self do
       current = self[i]
-      
+
       if current ~= last then
         table.insert(buffer, current)
         last = current
       end
     end
-    
+
     return table.concat(buffer)
   end
 end
