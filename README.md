@@ -20,7 +20,7 @@ A quick example of a few of the features.
 s = "Hello world.\nBoo. This is cool.\nHey!"
 
 for line in s:lines() do
-  for _, s in pairs(line / ' ')
+  for _, s in pairs(line / ' ') do
     print(s:capitalize())
   end
 end
